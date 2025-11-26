@@ -1,0 +1,97 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">BOLETOS EN VENTAS
+        <div class="ticket-container">
+
+            <!-- Evento 1 -->
+            <div class="ticket-card">
+                <img src="https://th.bing.com/th/id/R.30baba6a21179bbf9f0a366a57f6a508?rik=V8JICoJPeFdLqA&pid=ImgRaw&r=0" class="ticket-img">
+                <div class="ticket-body">
+                    <h3 class="ticket-title">Bluefields - Managua</h3>
+                    <p class="ticket-date">📅 Salida 8:00 pm Lunes - Miercoles</p>
+                    <p class="ticket-price">C$500</p>
+                    <button class="btn-buy" onclick="comprarBoleto('Boleto hacia Managua', 500)">Comprar Boleto</button>
+                </div>
+            </div>
+
+            <!-- Evento 2 -->
+            <div class="ticket-card">
+                <img src="https://tse2.mm.bing.net/th/id/OIP.u2555l0oyzVr7qURpduZAQHaEG?rs=1&pid=ImgDetMain&o=7&rm=3" class="ticket-img">
+                <div class="ticket-body">
+                    <h3 class="ticket-title">Bluefields - Leon</h3>
+                    <p class="ticket-date">📅 Salida 9:00 Am Martes - Jueves</p>
+                    <p class="ticket-price">C$600</p>
+                    <button class="btn-buy" onclick="comprarBoleto('Bolesto hacia Leon', 600)">Comprar Boleto</button>
+                </div>
+            </div>
+
+            <!-- Evento 3 -->
+            <div class="ticket-card">
+                <img src="https://static.wixstatic.com/media/c2bf80_d9ee6cdc12f0420f806c20122d8ccadf~mv2.jpg/v1/fit/w_1000,h_600,al_c,q_80/file.png" class="ticket-img">
+                <div class="ticket-body">
+                    <h3 class="ticket-title">Bluefields - Matagalpa</h3>
+                    <p class="ticket-date">📅 Salida: 6:00 Am Miercoles - Viernes</p>
+                    <p class="ticket-price">C$750</p>
+                    <button class="btn-buy" onclick="comprarBoleto('Boleto hacia Matagalpa', 750)">Comprar Boleto</button>
+                </div>
+            </div>
+
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        <script>
+            function comprarBoleto(evento, precio) {
+                Swal.fire({
+                    title: "Confirmar compra",
+                    html: `
+                        <p><strong>Evento:</strong> ${evento}</p>
+                        <p><strong>Precio:</strong> $${precio}</p>
+                        <p><strong>Cantidad:</strong></p>
+                        <input id="cantidad" type="number" min="1" value="1" class="swal2-input" style="width: 100px;">
+                    `,
+                    icon: "question",
+                    showCancelButton: true,
+                    confirmButtonText: "Comprar",
+                    cancelButtonText: "Cancelar"
+                }).then(result => {
+                    if (result.isConfirmed) {
+                        let cantidad = document.getElementById("cantidad").value;
+
+                        // Enviar la compra al servidor
+                        fetch('/Compras/GuardarCompra', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                Evento: evento,
+                                Cantidad: parseInt(cantidad),
+                                Precio: precio
+                            })
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Compra realizada',
+                                text: `Has comprado ${cantidad} boleto(s) para ${evento}.`
+                            });
+                        })
+                        .catch(error => {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: 'No se pudo guardar la compra.'
+                            });
+                        });
+                    }
+                });
+            }
+
+        </script>
+
+    </h1>
+    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
