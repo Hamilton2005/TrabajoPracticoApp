@@ -12,8 +12,8 @@ using TrabajoPracticoApp.Data;
 namespace TrabajoPracticoApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20251124204002_junior")]
-    partial class junior
+    [Migration("20251126205828_junior1")]
+    partial class junior1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,33 @@ namespace TrabajoPracticoApp.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("TrabajoPracticoApp.Models.Compra", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Cantidad")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Evento")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Fecha")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("Precio")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Compras");
+                });
 
             modelBuilder.Entity("TrabajoPracticoApp.Models.Role", b =>
                 {
@@ -66,7 +93,6 @@ namespace TrabajoPracticoApp.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("EmailConfirmationToken")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("EmailConfirmed")
@@ -77,11 +103,9 @@ namespace TrabajoPracticoApp.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PasswordResetToken")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RefreshToken")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("RefreshTokenExpiryTime")
@@ -102,6 +126,18 @@ namespace TrabajoPracticoApp.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Email = "admin@test.com",
+                            EmailConfirmed = true,
+                            Password = "$2b$12$eE6IjkEW8vm8fQnUuSA8EeibjU6OiLQaqGXX3wjE4tlYWl6/Ti2Uq",
+                            RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            RoleId = 1,
+                            UserName = "admin"
+                        });
                 });
 
             modelBuilder.Entity("TrabajoPracticoApp.Models.User", b =>

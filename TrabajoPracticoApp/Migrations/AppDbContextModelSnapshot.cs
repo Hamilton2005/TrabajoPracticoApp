@@ -123,6 +123,18 @@ namespace TrabajoPracticoApp.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Email = "admin@test.com",
+                            EmailConfirmed = true,
+                            Password = "$2b$12$eE6IjkEW8vm8fQnUuSA8EeibjU6OiLQaqGXX3wjE4tlYWl6/Ti2Uq",
+                            RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            RoleId = 1,
+                            UserName = "admin"
+                        });
                 });
 
             modelBuilder.Entity("TrabajoPracticoApp.Models.User", b =>
