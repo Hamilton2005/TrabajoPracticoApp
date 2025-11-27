@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using TrabajoPracticoApp.Data;
 using TrabajoPracticoApp.MappingProfiles;
 using TrabajoPracticoApp.Middleware;
+using TrabajoPracticoApp.Models;
 using TrabajoPracticoApp.Models.Settings;
 using TrabajoPracticoApp.Repository;
 using TrabajoPracticoApp.Services;
@@ -152,5 +153,49 @@ app.MapStaticAssets();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Auth}/{action=Login}/{id?}");
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    try
+    {
+        var context = services.GetRequiredService<AppDbContext>();
+
+        // Verificar si ya existe un admin
+        var adminExists = await context.Users
+            .Include(u => u.Role)
+            .AnyAsync(u => u.Role.Name == "Admin");
+
+        if (!adminExists)
+        {
+            Console.WriteLine(" Creando usuario administrador por defecto...");
+
+            var adminUser = new User
+            {
+                UserName = "admin",
+                Email = "Admin@gmail.com",
+                Password = BCrypt.Net.BCrypt.EnhancedHashPassword("Admin123!"),
+                RoleId = 1, // ID del rol Admin
+                EmailConfirmed = true,
+               
+            };
+
+            context.Users.Add(adminUser);
+            await context.SaveChangesAsync();
+
+            Console.WriteLine("Usuario administrador creado exitosamente");
+            Console.WriteLine("Email: Admin@gmail.com");
+            Console.WriteLine("Contraseña: c");
+        }
+        else
+        {
+            Console.WriteLine("Usuario administrador ya existe en el sistema");
+        }
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Error al crear usuario administrador: {ex.Message}");
+    }
+}
 
 app.Run();

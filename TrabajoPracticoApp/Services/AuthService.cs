@@ -49,6 +49,9 @@ namespace TrabajoPracticoApp.Services
 
         public async Task<(bool Success, LoginResponseDto? Result, string? ErrorMessage)> LoginAsync(LoginRequestDto dto)
         {
+
+           
+
             var user = await _userRepo.GetUserByEmail(dto.Email);
             if (user == null || !_userRepo.ValidatePassWord(user, dto.Password))
             return (false, null, "Credenciales invalidas");
@@ -97,7 +100,8 @@ namespace TrabajoPracticoApp.Services
             {
                 AccesToken = newAccessToken,
                 RefreshToken = newRefreshToken,
-                ExpireAt = DateTime.UtcNow.AddMinutes(15)
+                ExpireAt = DateTime.UtcNow.AddMinutes(15),
+                RoleId = user.RoleId
 
             };
 
@@ -107,7 +111,7 @@ namespace TrabajoPracticoApp.Services
         {
             var exists = await _userRepo.GetUserByEmail(dto.Email);
             if (exists != null)
-                return (false, "Correo ya en uso, Intente con otro por favor");
+                return (false, "Correo ya en uso, Intente con otro por favor jaj");
 
             var user = _mapper.Map<User>(dto);
             user.Password = BCrypt.Net.BCrypt.EnhancedHashPassword(dto.Password);
@@ -174,7 +178,7 @@ namespace TrabajoPracticoApp.Services
 
         public async Task<bool> ResetPasswordAsync(ResetPasswordRequestDto dto)
         {
-            var user = await _userRepo.GetUserByEmail(dto.Email);
+            User? user = await _userRepo.GetUserByEmail(dto.Email);
 
             if (user == null)
                 return false;

@@ -1,0 +1,114 @@
+﻿@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - BusTickets Admin</title>
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/boletos.css" />
+    <style>
+        /* Estilos adicionales para dashboard */
+        body {
+            background-color: #f5f5f5;
+        }
+
+        .card {
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+
+        .btn-logout {
+            background-color: #dc3545;
+            color: white;
+            font-weight: bold;
+            border-radius: 6px;
+            padding: 6px 18px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-logout:hover {
+            background-color: #b02a37;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Admin Dashboard</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#adminNavbar"
+                    aria-controls="adminNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="adminNavbar">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" asp-controller="Admin" asp-action="Index">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Admin" asp-action="Users">Usuarios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Admin" asp-action="Tickets">Boletos</a>
+                    </li>
+                </ul>
+                <form method="post" asp-controller="Auth" asp-action="Logout">
+                    <button type="submit" class="btn btn-logout">Salir</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <div class="container mt-4">
+        <h2>Bienvenido al Panel de Administración</h2>
+        <p>Aquí puedes gestionar usuarios, boletos y estadísticas de ventas.</p>
+
+        <div class="row mt-4">
+            <!-- Tarjeta de Usuarios -->
+            <div class="col-md-4 mb-3">
+                <div class="card p-3">
+                    <h5>Usuarios Registrados</h5>
+                    <p class="display-6">120</p>
+                    <a href="@Url.Action("Users", "Admin")" class="btn btn-primary btn-sm">Ver usuarios</a>
+                </div>
+            </div>
+
+            <!-- Tarjeta de Boletos -->
+            <div class="col-md-4 mb-3">
+                <div class="card p-3">
+                    <h5>Boletos Vendidos</h5>
+                    <p class="display-6">450</p>
+                    <a href="@Url.Action("Tickets", "Admin")" class="btn btn-primary btn-sm">Ver boletos</a>
+                </div>
+            </div>
+
+            <!-- Tarjeta de Ingresos -->
+            <div class="col-md-4 mb-3">
+                <div class="card p-3">
+                    <h5>Ingresos Totales</h5>
+                    <p class="display-6">$12,300</p>
+                    <a href="#" class="btn btn-primary btn-sm">Detalles</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

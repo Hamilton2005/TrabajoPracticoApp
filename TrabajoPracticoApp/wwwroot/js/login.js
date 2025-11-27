@@ -24,13 +24,13 @@ document.addEventListener("DOMContentLoaded", function () {
         .addField('#email', [
             {
                 rule: 'required',
-                errorMessage: 'El usuario es obligatorio',
+                errorMessage: 'El usuario es obligatorio, #1',
             }
         ])
         .addField('#password', [
             {
                 rule: 'required',
-                errorMessage: 'La contraseña es obligatoria',
+                errorMessage: 'La contraseña es obligatoria #2',
             }
         ])
         .onSuccess(async (event) => {
@@ -55,7 +55,12 @@ document.addEventListener("DOMContentLoaded", function () {
                     });
 
                     setTimeout(() => {
-                        window.location.href = '/Home/Index';
+                        // Redirigir según el rol
+                        if (response.data.RoleId === 1) {
+                            window.location.href = '/Admin/Señor'; // admin
+                        } else {
+                            window.location.href = '/Home/Index'; // usuario normal
+                        }
                     }, 2000);
                 } else {
                     Swal.fire({
@@ -145,7 +150,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 const mensaje = data?.message || 'No se pudo conectar con el servidor.';
                 Swal.fire({
                     icon: 'error',
-                    title: 'Error del servidor',
+                    title: 'Error del servidor YP',
                     text: mensaje
                 });
             }
@@ -157,7 +162,7 @@ document.addEventListener("DOMContentLoaded", function () {
         
         .addField('#resetEmail', [{
             rule: 'required',
-            errorMessage: 'La contraseña es requerida'
+            errorMessage: 'La contraseña es requerida YP' 
         },
         {
             rule: 'email',
@@ -199,10 +204,10 @@ document.addEventListener("DOMContentLoaded", function () {
             } catch (err) {
 
                 const data = err.response?.data;
-                const mensaje = data?.message || 'No se pudo conectar con el servidor.';
+                const mensaje = data?.message || 'No se pudo conectar con el servidor YP.';
                 Swal.fire({
                     icon: 'error',
-                    title: 'Error del servidor',
+                    title: 'Error del servidor YP',
                     text: mensaje
                 });
             }

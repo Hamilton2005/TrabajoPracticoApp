@@ -1,0 +1,86 @@
+﻿/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f9f9f9; /* fondo claro */
+    color: #333;
+    line-height: 1.6;
+}
+
+/* HEADER */
+header {
+    background-color: #4a90e2; /* azul elegante */
+    color: white;
+    padding: 30px 20px;
+    text-align: center;
+    border-bottom: 3px solid #357ABD; /* detalle más oscuro */
+}
+
+    header h1 {
+        font-size: 2.5em;
+        margin-bottom: 5px;
+    }
+
+    header p {
+        font-size: 1em;
+        font-weight: 400;
+    }
+
+/* MAIN */
+main {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+/* SECCIONES DE PRIVACIDAD */
+.privacy-section {
+    background-color: white; /* tarjeta blanca */
+    padding: 25px 20px;
+    margin-bottom: 25px;
+    border-radius: 12px;
+    box-shadow: 0 6px 10px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+    .privacy-section:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    }
+
+    .privacy-section h2 {
+        color: #4a90e2; /* azul elegante */
+        margin-bottom: 15px;
+        font-size: 1.5em;
+        border-bottom: 1px solid #e0e0e0;
+        padding-bottom: 5px;
+    }
+
+    .privacy-section ul {
+        list-style-type: disc;
+        padding-left: 20px;
+    }
+
+    .privacy-section a {
+        color: #4a90e2; /* azul elegante */
+        text-decoration: none;
+    }
+
+        .privacy-section a:hover {
+            text-decoration: underline;
+        }
+
+/* FOOTER */
+footer {
+    text-align: center;
+    padding: 20px 0;
+    background-color: #f1f1f1;
+    color: #555;
+    border-top: 1px solid #ddd;
+    margin-top: 30px;
+}

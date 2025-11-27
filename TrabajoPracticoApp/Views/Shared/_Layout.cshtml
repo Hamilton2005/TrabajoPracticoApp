@@ -7,10 +7,9 @@
 
 
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/boletos.css" />
     
-
-   
+    <link rel="stylesheet" href="~/css/boletos.css" />
+  
 </head>
 <body>
     <header>
@@ -29,6 +28,13 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
+                        </li>
+                    <li class="nav-item">
+                        <!-- Botón Salir -->
+                        <form method="post" asp-controller="Auth" asp-action="Logout" class="d-inline">
+                            <button type="submit" class="btn btn-warning btn-sm ms-3">Salir</button>
+                        </form>
+                    </li>
                     </ul>
                 </div>
             </div>

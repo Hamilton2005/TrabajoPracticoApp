@@ -63,3 +63,21 @@
     .btn-buy:hover {
         background: #8366a5;
     }
+
+/* Botón Salir elegante */
+.navbar .btn-warning {
+    background-color: #ffc107; /* color dorado base */
+    color: #000000;
+    font-weight: 600;
+    border: none;
+    padding: 6px 18px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+    .navbar .btn-warning:hover {
+        background-color: #eb0f0f; /* dorado más oscuro */
+        color: #fff;
+        transform: translateY(-2px); /* efecto levitar */
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }

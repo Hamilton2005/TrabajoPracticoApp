@@ -2,8 +2,8 @@
 {
     public class ResetPasswordRequestDto
     {
-        public string Email;
-        public string Token;
-        public string NewPassword;
+        public string? Email;
+        public string? Token;
+        public string? NewPassword;
     }
 }
